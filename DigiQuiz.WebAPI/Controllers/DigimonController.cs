@@ -19,18 +19,8 @@ public class DigimonController : ControllerBase
     {
         var response = await _getDigimonsServiceHandler.GetDigimons();
 
-
-        var digimonsServiceReponse = new List<GetDigimonsServiceResponse>();
-        foreach (var content in response.Contents)
-        {
-            var digimonServiceResponse = new GetDigimonsServiceResponse
-            {
-                Name = content.Name,
-                Image = content.Image
-            };
-
-            digimonsServiceReponse.Add(digimonServiceResponse);
-        }
+        var digimonsServiceReponse = response.Contents
+            .Select(c => new GetDigimonsServiceResponse { Name = c.Name, Image = c.Image });
 
         return new OkObjectResult(digimonsServiceReponse);
     }
