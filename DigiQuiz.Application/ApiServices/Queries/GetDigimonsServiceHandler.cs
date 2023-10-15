@@ -3,7 +3,7 @@ using DigiQuiz.Domain.Models;
 
 namespace DigiQuiz.Application.ApiServices.Queries;
 
-public class GetDigimonsServiceHandler
+public class GetDigimonsServiceHandler: IGetDigimonsServiceHandler
 {
     private readonly IDigimonRepository _digimonRepository;
 
