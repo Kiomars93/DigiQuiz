@@ -5,10 +5,10 @@ namespace DigiQuiz.Domain.Models;
 public class Digimons
 {
     [JsonPropertyName("content")]
-    public List<Content> Contents { get; set; }
+    public List<ContentObj> Contents { get; set; }
 }
 
-public class Content
+public class ContentObj
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }

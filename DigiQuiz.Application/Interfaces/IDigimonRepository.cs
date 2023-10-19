@@ -4,5 +4,5 @@ namespace DigiQuiz.Application.Interfaces;
 
 public interface IDigimonRepository
 {
-    Task<Digimons> GetDigimons();
+    Task<Digimons> GetDigimons(int pages);
 }

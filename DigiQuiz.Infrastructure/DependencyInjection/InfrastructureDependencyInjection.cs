@@ -7,9 +7,10 @@ namespace DigiQuiz.Infrastructure.DependencyInjection;
 
 public static class InfrastructureDependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         services.AddTransient<IDigimonRepository, DigimonRepository>();
+        services.AddHttpClient();
         return services;
     }
 }
