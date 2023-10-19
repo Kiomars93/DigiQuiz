@@ -3,7 +3,7 @@ using DigiQuiz.Domain.Models;
 
 namespace DigiQuiz.Application.ApiServices.Queries;
 
-public class GetDigimonsServiceHandler: IGetDigimonsServiceHandler
+public class GetDigimonsServiceHandler : IGetDigimonsServiceHandler
 {
     private readonly IDigimonRepository _digimonRepository;
 
@@ -14,6 +14,8 @@ public class GetDigimonsServiceHandler: IGetDigimonsServiceHandler
 
     public async Task<Digimons> GetDigimons()
     {
-        return await _digimonRepository.GetDigimons();
+        //Todo: när jag väl cache detta så vill jag inte att samma page ska poppas upp
+        var random = new Random();
+        return await _digimonRepository.GetDigimons(random.Next(285));
     }
 }

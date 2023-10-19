@@ -2,25 +2,32 @@
 using DigiQuiz.Domain.Models;
 using System.Text.Json;
 
+
 namespace DigiQuiz.Infrastructure.Services;
 
 public class DigimonRepository : IDigimonRepository
 {
-    private readonly HttpClient _httpClient = new();
-    public DigimonRepository()
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly string baseUrl = "https://www.digi-api.com/api/v1/";
+    public DigimonRepository(IHttpClientFactory httpClientFactory)
     {
+        _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<Digimons> GetDigimons()
+    public async Task<Digimons> GetDigimons(int page)
     {
-        _httpClient.BaseAddress = new Uri("https://www.digi-api.com/api/v1/");
-
-        var digimons = new Digimons();
-
-        var httpResponse = await _httpClient.GetAsync("digimon?page=0");
-        httpResponse.EnsureSuccessStatusCode();
-        var jsonStringResult = await httpResponse.Content.ReadAsStringAsync();
-        digimons = JsonSerializer.Deserialize<Digimons>(jsonStringResult);
-        return digimons;
+        var httpResponse = await _httpClientFactory.CreateClient().GetAsync($"{baseUrl}digimon?page={page}&pageSize=3");
+        try
+        {
+            httpResponse.EnsureSuccessStatusCode();
+            var jsonStringResult = await httpResponse.Content.ReadAsStringAsync();
+            var digimons = JsonSerializer.Deserialize<Digimons>(jsonStringResult);
+            return digimons;
+        }
+        catch (HttpRequestException)
+        {
+            // Todo: Create custom error
+            throw new Exception("The page is not found!");
+        }
     }
 }
