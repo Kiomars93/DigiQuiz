@@ -4,5 +4,5 @@ namespace DigiQuiz.Application.Interfaces;
 
 public interface IGetDigimonsServiceHandler
 {
-    Task<Digimons> GetDigimons();
+    Task<Digimons> GetDigimonsHandler();
 }

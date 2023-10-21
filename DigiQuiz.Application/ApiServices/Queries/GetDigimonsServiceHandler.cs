@@ -12,7 +12,7 @@ public class GetDigimonsServiceHandler : IGetDigimonsServiceHandler
         _digimonRepository = digimonRepository;
     }
 
-    public async Task<Digimons> GetDigimons()
+    public async Task<Digimons> GetDigimonsHandler()
     {
         //Todo: när jag väl cache detta så vill jag inte att samma page ska poppas upp
         var random = new Random();
