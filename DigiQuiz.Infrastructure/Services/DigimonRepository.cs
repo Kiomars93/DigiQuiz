@@ -4,7 +4,7 @@ using System.Text.Json;
 
 
 namespace DigiQuiz.Infrastructure.Services;
-
+//Todo: Kanske byter ut namet till Service istället för Repo
 public class DigimonRepository : IDigimonRepository
 {
     private readonly IHttpClientFactory _httpClientFactory;

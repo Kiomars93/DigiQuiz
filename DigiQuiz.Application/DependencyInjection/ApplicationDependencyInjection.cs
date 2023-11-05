@@ -1,6 +1,5 @@
 ﻿using DigiQuiz.Application.ApiServices.Commands;
 using DigiQuiz.Application.ApiServices.Queries;
-using DigiQuiz.Application.ApiServices.Responses;
 using DigiQuiz.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
