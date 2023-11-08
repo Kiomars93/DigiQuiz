@@ -15,8 +15,7 @@ public static class InfrastructureDependencyInjection
         services.AddTransient<IDigimonRepository, DigimonRepository>()
             .AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddHttpClient();
-        var connectionstring = configuration.GetConnectionString("DatabaseConnection");
-        services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlServer(connectionstring));
+
         return services;
     }
 }

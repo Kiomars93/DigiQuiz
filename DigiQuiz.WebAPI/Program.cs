@@ -1,9 +1,14 @@
 using DigiQuiz.Application.DependencyInjection;
+using DigiQuiz.Infrastructure.Data.DbContexts;
 using DigiQuiz.Infrastructure.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
+
+var userSecretsConnectionString = builder.Configuration["ConnectionStrings:DatabaseConnection"];
+builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlServer(userSecretsConnectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

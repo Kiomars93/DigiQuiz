@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigiQuiz.Infrastructure.Migrations
 {
     [DbContext(typeof(PlayerDbContext))]
-    [Migration("20231107135312_Init")]
+    [Migration("20231108120241_Init")]
     partial class Init
     {
         /// <inheritdoc />
