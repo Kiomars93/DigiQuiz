@@ -24,8 +24,7 @@ internal class PlayerRepository : IPlayerRepository
 
     public async Task DeletePlayer(int playerId)
     {
-        var player = _dbContext.Player
-        .FirstOrDefault(p => p.Id == playerId);
+        var player = _dbContext.Player.FirstOrDefault(p => p.Id == playerId);
 
         if (player is null) return;
 

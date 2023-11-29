@@ -34,8 +34,10 @@ public class DigimonController : ControllerBase
         var response = await _postDigimonServiceHandler.PostDigimonHandler(serviceRequest);
         var digimonsServiceReponse = new PostDigimonServiceResponse
         {
-            Name = response
+            Name = response.Name,
+            Points = response.Points
         };
+
         return digimonsServiceReponse;
     }
 }

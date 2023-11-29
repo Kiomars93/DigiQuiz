@@ -9,6 +9,6 @@ namespace DigiQuiz.Application.ApiServices.Responses
     public class PostDigimonServiceResponse
     {
         public string Name { get; set; }
-        public string Image { get; set; }
+        public int Points { get; set; }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using DigiQuiz.Application.ApiServices.Requests;
+using DigiQuiz.Domain.Entities;
 
 namespace DigiQuiz.Application.Interfaces
 {
     public interface IPostDigimonServiceHandler
     {
-        Task<string> PostDigimonHandler(PostDigimonServiceRequest serviceRequest);
+        Task<Player> PostDigimonHandler(PostDigimonServiceRequest serviceRequest);
     }
 }
