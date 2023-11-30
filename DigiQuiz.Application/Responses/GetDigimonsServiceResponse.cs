@@ -1,4 +1,4 @@
-﻿namespace DigiQuiz.Application.ApiServices.Responses;
+﻿namespace DigiQuiz.Application.Responses;
 
 public class GetDigimonsServiceResponse
 {

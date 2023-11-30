@@ -1,6 +1,8 @@
-﻿using DigiQuiz.Application.ApiServices.Requests;
-using DigiQuiz.Application.ApiServices.Responses;
-using DigiQuiz.Application.Interfaces;
+﻿using DigiQuiz.Application.Commands;
+using DigiQuiz.Application.Queries;
+using DigiQuiz.Application.Requests;
+using DigiQuiz.Application.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiQuiz.WebAPI.Controllers;
@@ -9,18 +11,16 @@ namespace DigiQuiz.WebAPI.Controllers;
 [ApiController]
 public class DigimonController : ControllerBase
 {
-    private readonly IGetDigimonsServiceHandler _getDigimonsServiceHandler;
-    private readonly IPostDigimonServiceHandler _postDigimonServiceHandler;
-    public DigimonController(IGetDigimonsServiceHandler getDigimonsServiceHandler, IPostDigimonServiceHandler postDigimonServiceHandler)
+    private readonly ISender _sender;
+    public DigimonController(ISender sender)
     {
-        _getDigimonsServiceHandler = getDigimonsServiceHandler;
-        _postDigimonServiceHandler = postDigimonServiceHandler;
+        _sender = sender;
     }
 
     [HttpGet("Questions")]
     public async Task<ActionResult<GetDigimonsServiceResponse>> GetDigimons()
     {
-        var response = await _getDigimonsServiceHandler.GetDigimonsHandler();
+        var response = await _sender.Send(new GetDigimonsServiceQuery());
 
         var digimonsServiceReponse = response.Contents
             .Select(c => new GetDigimonsServiceResponse { Name = c.Name, Image = c.Image });
@@ -31,7 +31,8 @@ public class DigimonController : ControllerBase
     [HttpPost("Answers")]
     public async Task<ActionResult<PostDigimonServiceResponse>> PostDigimon(PostDigimonServiceRequest serviceRequest)
     {
-        var response = await _postDigimonServiceHandler.PostDigimonHandler(serviceRequest);
+        var response = await _sender.Send(new PostDigimonServiceCommand(serviceRequest));
+
         var digimonsServiceReponse = new PostDigimonServiceResponse
         {
             Name = response.Name,

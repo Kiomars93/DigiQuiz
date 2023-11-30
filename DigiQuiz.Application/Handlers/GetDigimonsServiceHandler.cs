@@ -1,9 +1,11 @@
 ﻿using DigiQuiz.Application.Interfaces;
+using DigiQuiz.Application.Queries;
 using DigiQuiz.Domain.Models;
+using MediatR;
 
-namespace DigiQuiz.Application.ApiServices.Queries;
+namespace DigiQuiz.Application.Handlers;
 
-public class GetDigimonsServiceHandler : IGetDigimonsServiceHandler
+public class GetDigimonsServiceHandler : IRequestHandler<GetDigimonsServiceQuery, Digimons>
 {
     private readonly IDigimonRepository _digimonRepository;
 
@@ -11,10 +13,8 @@ public class GetDigimonsServiceHandler : IGetDigimonsServiceHandler
     {
         _digimonRepository = digimonRepository;
     }
-
-    public async Task<Digimons> GetDigimonsHandler()
+    public async Task<Digimons> Handle(GetDigimonsServiceQuery request, CancellationToken cancellationToken)
     {
-        //Todo: när jag väl cache detta så vill jag inte att samma page ska poppas upp
         var random = new Random();
         return await _digimonRepository.GetDigimons(random.Next(285));
     }

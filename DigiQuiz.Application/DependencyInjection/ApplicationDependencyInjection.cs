@@ -1,7 +1,4 @@
-﻿using DigiQuiz.Application.ApiServices.Commands;
-using DigiQuiz.Application.ApiServices.Queries;
-using DigiQuiz.Application.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace DigiQuiz.Application.DependencyInjection;
 
@@ -9,8 +6,11 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddTransient<IGetDigimonsServiceHandler, GetDigimonsServiceHandler>()
-            .AddTransient<IPostDigimonServiceHandler, PostDigimonServiceHandler>();
+        var assembly = typeof(ApplicationDependencyInjection).Assembly;
+
+        services.AddMediatR(configuration =>
+            configuration.RegisterServicesFromAssembly(assembly));
+
         return services;
     }
 }

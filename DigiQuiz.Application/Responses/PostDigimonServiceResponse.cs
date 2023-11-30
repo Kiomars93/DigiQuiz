@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigiQuiz.Application.ApiServices.Responses
+namespace DigiQuiz.Application.Responses
 {
     public class PostDigimonServiceResponse
     {

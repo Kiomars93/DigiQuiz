@@ -1,4 +1,4 @@
-﻿namespace DigiQuiz.Application.ApiServices.Requests;
+﻿namespace DigiQuiz.Application.Requests;
 
 public class PostDigimonServiceRequest
 {
