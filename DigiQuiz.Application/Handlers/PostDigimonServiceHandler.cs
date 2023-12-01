@@ -19,7 +19,7 @@ public class PostDigimonServiceHandler : IRequestHandler<PostDigimonServiceComma
         var player = new Player
         {
             Name = serviceCommand._serviceRequest.Name,
-            Points = serviceCommand._serviceRequest.Points,
+            Points = 5,
             GameDate = DateTime.Now
         };
 
