@@ -16,12 +16,14 @@ public class DigimonRepository : IDigimonRepository
 
     public async Task<Digimons> GetDigimons(int page)
     {
+
         var httpResponse = await _httpClientFactory.CreateClient().GetAsync($"{baseUrl}digimon?page={page}&pageSize=3");
         try
         {
             httpResponse.EnsureSuccessStatusCode();
             var jsonStringResult = await httpResponse.Content.ReadAsStringAsync();
             var digimons = JsonSerializer.Deserialize<Digimons>(jsonStringResult);
+
             return digimons;
         }
         catch (HttpRequestException)

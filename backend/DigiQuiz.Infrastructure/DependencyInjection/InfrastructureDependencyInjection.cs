@@ -1,8 +1,6 @@
 ﻿using DigiQuiz.Application.Interfaces;
-using DigiQuiz.Infrastructure.Data.DbContexts;
 using DigiQuiz.Infrastructure.Repositories;
 using DigiQuiz.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

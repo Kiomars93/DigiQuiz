@@ -17,28 +17,44 @@ public class DigimonController : ControllerBase
         _sender = sender;
     }
 
+
     [HttpGet("Questions")]
     public async Task<ActionResult<GetDigimonsServiceResponse>> GetDigimons()
     {
         var response = await _sender.Send(new GetDigimonsServiceQuery());
 
-        var digimonsServiceReponse = response.Contents
-            .Select(c => new GetDigimonsServiceResponse { Name = c.Name, Image = c.Image });
+        var getDigimonsServiceReponse = response.Contents
+            .Select(c => new GetDigimonsServiceResponse { Id = c.Id, Name = c.Name, Image = c.Image });
 
-        return new OkObjectResult(digimonsServiceReponse);
+        return new OkObjectResult(getDigimonsServiceReponse);
     }
 
     [HttpPost("Answers")]
-    public async Task<ActionResult<PostDigimonServiceResponse>> PostDigimon(PostDigimonServiceRequest serviceRequest)
+    public async Task<ActionResult<PostDigimonServiceResponse>> PostDigimons(PostDigimonServiceRequest serviceRequest)
     {
         var response = await _sender.Send(new PostDigimonServiceCommand(serviceRequest));
 
-        var digimonsServiceReponse = new PostDigimonServiceResponse
+        var playerServiceReponse = new PostDigimonServiceResponse
         {
             Name = response.Name,
             Points = response.Points
         };
 
-        return digimonsServiceReponse;
+        return playerServiceReponse;
+    }
+
+
+    [HttpPost("Scoreboard")]
+    public async Task<ActionResult<PostPlayerServiceResponse>> PostPlayers(PostPlayerServiceRequest serviceRequest)
+    {
+        var response = await _sender.Send(new PostPlayerServiceCommand(serviceRequest));
+
+        var playerServiceReponse = new PostPlayerServiceResponse
+        {
+            Name = response.Name,
+            Points = response.Points
+        };
+
+        return playerServiceReponse;
     }
 }

@@ -7,22 +7,45 @@ namespace DigiQuiz.Application.Handlers;
 
 public class PostDigimonServiceHandler : IRequestHandler<PostDigimonServiceCommand, Player>
 {
-    private readonly IPlayerRepository _playerRepository;
+    private readonly IDigimonRepository _digimonRepository;
 
-    public PostDigimonServiceHandler(IPlayerRepository playerRepository)
+    public PostDigimonServiceHandler(IDigimonRepository digimonRepository)
     {
-        _playerRepository = playerRepository;
+        _digimonRepository = digimonRepository;
     }
 
-    public async Task<Player> Handle(PostDigimonServiceCommand serviceCommand, CancellationToken cancellationToken)
+    // Todo: ta bort allt med player. Här ska digimon logiken skötas att om du svara rätt så får du poäng annars inget
+    // Får returnera poängen till frontend:en så att det skjuts in till player table
+    public async Task<Player> Handle(PostDigimonServiceCommand request, CancellationToken cancellationToken)
     {
-        var player = new Player
+
+        //DTO:n ska vara i frontend och det skickas ner och det är ju baserat init get
+
+        //Skickar ner en lista med DTO
+
+        //Sen logik för och rätt och fel
+        // totalpoäng
+
+        if (request == null)
         {
-            Name = serviceCommand._serviceRequest.Name,
-            Points = 5,
-            GameDate = DateTime.Now
-        };
 
-        return await _playerRepository.AddPlayer(player);
+        }
+
+        var testPlayer = new Player();
+
+
+
+        if (request == null) { }
+
+        
+        
+        // om digiinput's id matchar någon id från listan då läggs det till totalpoints
+
+
+        return testPlayer;
     }
+
+    //Todo: PostDigimon metoden det ska inte vara kvar här:
+
+    
 }

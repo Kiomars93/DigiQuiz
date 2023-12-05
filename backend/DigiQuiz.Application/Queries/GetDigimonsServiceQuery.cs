@@ -1,8 +1,8 @@
-﻿using DigiQuiz.Domain.Models;
+﻿using DigiQuiz.Application.DTO;
 using MediatR;
 
 namespace DigiQuiz.Application.Queries;
 
-public class GetDigimonsServiceQuery : IRequest<Digimons>
+public class GetDigimonsServiceQuery : IRequest<DigimonsDTO>
 {
 }

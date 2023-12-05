@@ -2,10 +2,24 @@ using DigiQuiz.Application.DependencyInjection;
 using DigiQuiz.Infrastructure.Data.DbContexts;
 using DigiQuiz.Infrastructure.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+
+var DigimonOrigin = "_digimonOrigin";
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: DigimonOrigin,
+                      policy =>
+                      {
+                          policy
+                          .AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
+
 
 var userSecretsConnectionString = builder.Configuration["ConnectionStrings:DatabaseConnection"];
 builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlServer(userSecretsConnectionString));
@@ -29,6 +43,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(DigimonOrigin);
 
 app.UseAuthorization();
 
