@@ -1,6 +1,6 @@
 ﻿using DigiQuiz.Application.Commands;
 using DigiQuiz.Application.Interfaces;
-using DigiQuiz.Domain.Entities;
+using DigiQuiz.Domain.Models;
 using MediatR;
 
 namespace DigiQuiz.Application.Handlers;

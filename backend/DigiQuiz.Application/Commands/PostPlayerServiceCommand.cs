@@ -1,5 +1,5 @@
 ﻿using DigiQuiz.Application.Requests;
-using DigiQuiz.Domain.Entities;
+using DigiQuiz.Domain.Models;
 using MediatR;
 
 namespace DigiQuiz.Application.Commands;

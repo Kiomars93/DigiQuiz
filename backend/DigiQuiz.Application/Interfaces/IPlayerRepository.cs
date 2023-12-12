@@ -1,4 +1,4 @@
-﻿using DigiQuiz.Domain.Entities;
+﻿using DigiQuiz.Domain.Models;
 
 namespace DigiQuiz.Application.Interfaces;
 

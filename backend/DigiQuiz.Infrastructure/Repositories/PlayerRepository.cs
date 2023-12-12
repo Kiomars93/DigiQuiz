@@ -1,5 +1,5 @@
 ﻿using DigiQuiz.Application.Interfaces;
-using DigiQuiz.Domain.Entities;
+using DigiQuiz.Domain.Models;
 using DigiQuiz.Infrastructure.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 

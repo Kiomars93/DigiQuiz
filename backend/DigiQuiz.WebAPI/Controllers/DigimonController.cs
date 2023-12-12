@@ -29,21 +29,6 @@ public class DigimonController : ControllerBase
         return new OkObjectResult(getDigimonsServiceReponse);
     }
 
-    [HttpPost("Answers")]
-    public async Task<ActionResult<PostDigimonServiceResponse>> PostDigimons(PostDigimonServiceRequest serviceRequest)
-    {
-        var response = await _sender.Send(new PostDigimonServiceCommand(serviceRequest));
-
-        var playerServiceReponse = new PostDigimonServiceResponse
-        {
-            Name = response.Name,
-            Points = response.Points
-        };
-
-        return playerServiceReponse;
-    }
-
-
     [HttpPost("Scoreboard")]
     public async Task<ActionResult<PostPlayerServiceResponse>> PostPlayers(PostPlayerServiceRequest serviceRequest)
     {

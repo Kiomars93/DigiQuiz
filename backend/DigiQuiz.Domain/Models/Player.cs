@@ -1,4 +1,4 @@
-﻿namespace DigiQuiz.Domain.Entities;
+﻿namespace DigiQuiz.Domain.Models;
 
 public class Player
 {

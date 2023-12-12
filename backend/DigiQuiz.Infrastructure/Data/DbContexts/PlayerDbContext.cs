@@ -1,4 +1,4 @@
-﻿using DigiQuiz.Domain.Entities;
+﻿using DigiQuiz.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigiQuiz.Infrastructure.Data.DbContexts;
