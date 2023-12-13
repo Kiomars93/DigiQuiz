@@ -42,4 +42,20 @@ public class DigimonController : ControllerBase
 
         return playerServiceReponse;
     }
+
+    [HttpGet("Leaderboard")]
+    public async Task<ActionResult<List<GetPlayerServiceResponse>>> GetPlayers()
+    {
+        var response = await _sender.Send(new GetPlayerServiceQuery());
+
+        var playerServiceReponse = response.Select(x => new GetPlayerServiceResponse
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Points = x.Points,
+            GameDate = x.GameDate
+        }).ToList();
+
+        return playerServiceReponse;
+    }
 }
