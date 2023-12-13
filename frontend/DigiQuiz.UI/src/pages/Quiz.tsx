@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
 // import Api from '../services/Api';
+import { useNavigate } from 'react-router-dom';
 
-export default function Quiz() {
+interface TotalPointProps {
+  totalPointsprops: number;
+  updateTotalPointsState: (newState: number) => void;
+}
+
+export default function Quiz({
+  totalPointsprops,
+  updateTotalPointsState,
+}: TotalPointProps) {
+  const navigate = useNavigate();
   const [digimons, setDigimons] = useState<Digimons[]>([]);
   const [selectedDigimon, setSelectedDigimon] = useState<number | null>(null);
   const [correctAnswerId, setCorrectAnswerId] = useState<number | null>(null);
-  const [totalPoints, setTotalPoints] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentImage, setCurrentImage] = useState<string>('');
 
   const apiUrl = 'https://localhost:7285/api/Digimon';
@@ -54,23 +64,29 @@ export default function Quiz() {
     setCorrectAnswerId(TempDigimon[initRandomIndex].id);
   }, []);
 
-  console.log(currentImage);
+  const handleAnswersClick = (digimonId: number) => {
+    if (currentPage === 10) {
+      alert('End game');
+      navigate('/scoreboard');
+    }
 
-  const handleClick = (digimonId: number) => {
     if (digimonId === correctAnswerId) {
       const randomIndex = Math.floor(Math.random() * TempDigimon.length);
       console.log('Correct!');
-      setTotalPoints(totalPoints + 5);
+      updateTotalPointsState(totalPointsprops + 5);
       setCurrentImage(TempDigimon[randomIndex].image);
       setCorrectAnswerId(TempDigimon[randomIndex].id);
     } else {
       console.log('Wrong!');
     }
+    setCurrentPage(currentPage + 1);
+    console.log(currentPage);
   };
 
   return (
     <>
-      <h2>Total Score: {totalPoints}</h2>
+      <h2>Total Score: {totalPointsprops}</h2>
+      <h2>{currentPage}/10</h2>
       <h1>What is the name of this digimon?</h1>
       <img src={currentImage} alt={'Image not found'} />
       {/* <ul>
@@ -82,14 +98,14 @@ export default function Quiz() {
           </li>
           ))}
         </ul> */}
-
       <ul>
         {TempDigimon.map((digimon) => (
           <li style={{ listStyle: 'none' }} key={digimon.id}>
             <button
-              onClick={() => handleClick(digimon.id)}
+              onClick={() => handleAnswersClick(digimon.id)}
               style={{
                 fontWeight: selectedDigimon === digimon.id ? 'bold' : 'normal',
+                backgroundColor: 'aqua',
               }}>
               {digimon.name}
             </button>
