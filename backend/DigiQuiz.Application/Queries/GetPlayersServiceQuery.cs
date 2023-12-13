@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DigiQuiz.Application.Queries
 {
-    public class GetPlayerServiceQuery: IRequest<List<PlayerDTO>>
+    public class GetPlayersServiceQuery: IRequest<List<PlayerDTO>>
     {
     }
 }

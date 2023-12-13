@@ -44,11 +44,11 @@ public class DigimonController : ControllerBase
     }
 
     [HttpGet("Leaderboard")]
-    public async Task<ActionResult<List<GetPlayerServiceResponse>>> GetPlayers()
+    public async Task<ActionResult<List<GetPlayersServiceResponse>>> GetPlayers()
     {
-        var response = await _sender.Send(new GetPlayerServiceQuery());
+        var response = await _sender.Send(new GetPlayersServiceQuery());
 
-        var playerServiceReponse = response.Select(x => new GetPlayerServiceResponse
+        var playerServiceReponse = response.Select(x => new GetPlayersServiceResponse
         {
             Id = x.Id,
             Name = x.Name,

@@ -5,15 +5,15 @@ using MediatR;
 
 namespace DigiQuiz.Application.Handlers;
 
-public class GetPlayerServiceHandler : IRequestHandler<GetPlayerServiceQuery, List<PlayerDTO>>
+public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, List<PlayerDTO>>
 {
     private readonly IPlayerRepository _playerRepository;
-    public GetPlayerServiceHandler(IPlayerRepository playerRepository)
+    public GetPlayersServiceHandler(IPlayerRepository playerRepository)
     {
         _playerRepository = playerRepository;
     }
 
-    public async Task<List<PlayerDTO>> Handle(GetPlayerServiceQuery request, CancellationToken cancellationToken)
+    public async Task<List<PlayerDTO>> Handle(GetPlayersServiceQuery request, CancellationToken cancellationToken)
     {
         var response = await _playerRepository.GetAll();
 

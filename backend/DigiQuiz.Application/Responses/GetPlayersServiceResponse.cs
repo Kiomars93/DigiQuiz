@@ -1,6 +1,6 @@
 ﻿namespace DigiQuiz.Application.Responses;
 
-public class GetPlayerServiceResponse
+public class GetPlayersServiceResponse
 {
     public int Id { get; set; }
     public string Name { get; set; }
