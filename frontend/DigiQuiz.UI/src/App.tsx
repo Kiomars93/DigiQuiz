@@ -1,8 +1,9 @@
-import Quiz from './pages/Quiz';
+import Quiz from './components/Quiz';
 import './App.css';
-import Scoreboard from './pages/Scoreboard';
+import Scoreboard from './components/Scoreboard';
 import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
   const [totalPoints, setTotalPoints] = useState<number>(0);
@@ -27,6 +28,7 @@ function App() {
           path='/scoreboard'
           element={<Scoreboard totalPointsprops={totalPoints} />}
         />
+        <Route path='/leaderboard' element={<Leaderboard />} />
       </Routes>
     </>
   );
