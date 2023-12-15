@@ -18,12 +18,12 @@ export default function Quiz({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentImage, setCurrentImage] = useState<string>('');
 
-  const apiUrl = 'https://localhost:7285/api/Digimon';
+  const baseUrl = 'https://localhost:7285/api/Digimon';
 
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       const response = await fetch(`${apiUrl}/Questions`);
+  //       const response = await fetch(`${baseUrl}/Questions`);
   //       const data = await response.json();
   //       setDigimons(data);
   //     } catch (error) {

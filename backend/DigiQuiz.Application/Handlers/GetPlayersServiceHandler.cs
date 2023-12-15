@@ -23,7 +23,7 @@ public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, 
             Name = x.Name,
             Points = x.Points,
             GameDate = x.GameDate
-        }).OrderByDescending(x => x.Points).ToList();
+        }).OrderByDescending(x => x.Points).Take(5).ToList();
 
         return playerList;
     }

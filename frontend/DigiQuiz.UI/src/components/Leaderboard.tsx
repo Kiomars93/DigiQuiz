@@ -5,30 +5,38 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { fetchData } from '../services/APIHelper';
+import { useEffect, useState } from 'react';
 
 export default function Leaderboard() {
-  function createData(
-    id: number,
-    name: string,
-    points: number,
-    gameDate: Date
-  ) {
-    return { id, name, points, gameDate };
-  }
-  let date: Date = new Date('2023-12-14');
+  const [leaderboard, setLeaderboard] = useState<LeaderBoard[]>([]);
+  const baseUrl = 'https://localhost:7285/api/Digimon';
 
-  const rows = [
-    createData(1, 'Frozen yoghurt', 6.0, date),
-    createData(2, 'Frozen yoghurt', 6.0, date),
-    createData(3, 'Frozen yoghurt', 6.0, date),
-    createData(4, 'Frozen yoghurt', 6.0, date),
-    createData(5, 'Frozen yoghurt', 6.0, date),
-    createData(6, 'Frozen yoghurt', 6.0, date),
-    createData(7, 'Frozen yoghurt', 6.0, date),
-    createData(8, 'Frozen yoghurt', 6.0, date),
-    createData(9, 'Frozen yoghurt', 6.0, date),
-    createData(10, 'Frozen yoghurt', 6.0, date),
-  ];
+  type LeaderBoard = {
+    id: number;
+    name: string;
+    points: number;
+    gameDate: string;
+    rank: number;
+  };
+
+  useEffect(() => {
+    const fetchDataAsync = async (url: string) => {
+      try {
+        const result: LeaderBoard[] = await fetchData(url);
+
+        const updatedResultData = result.map((player, index) => ({
+          ...player,
+          rank: index + 1,
+        }));
+
+        setLeaderboard(updatedResultData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchDataAsync(`${baseUrl}/leaderboard`);
+  }, []);
 
   return (
     <>
@@ -37,26 +45,36 @@ export default function Leaderboard() {
           <TableHead>
             <TableRow>
               <TableCell>Rank</TableCell>
-              <TableCell align='right'>Player</TableCell>
+              <TableCell align='right'>Players</TableCell>
               <TableCell align='right'>Points</TableCell>
               <TableCell align='right'>Game Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {leaderboard.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component='th' scope='row'>
-                  {row.name}
+                  {row.rank}
                 </TableCell>
                 <TableCell align='right'>{row.name}</TableCell>
                 <TableCell align='right'>{row.points}</TableCell>
-                <TableCell align='right'>
-                  {row.gameDate.toDateString()}
-                </TableCell>
+                <TableCell align='right'>{row.gameDate}</TableCell>
               </TableRow>
             ))}
+            {/* {objectProperties.map(([key, value]) => (
+              <TableRow
+                key={key}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component='th' scope='row'>
+                  {key}
+                </TableCell>
+                <TableCell align='right'>{value.name}</TableCell>
+                <TableCell align='right'>{value.points}</TableCell>
+                <TableCell align='right'>{value.gameDate}</TableCell>
+              </TableRow>
+            ))} */}
           </TableBody>
         </Table>
       </TableContainer>
