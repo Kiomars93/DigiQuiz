@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import Api from '../services/Api';
+import { fetchData } from '../services/APIHelper';
 import { useNavigate } from 'react-router-dom';
 
 interface TotalPointProps {
@@ -12,27 +12,12 @@ export default function Quiz({
   updateTotalPointsState,
 }: TotalPointProps) {
   const navigate = useNavigate();
-  const [digimons, setDigimons] = useState<Digimons[]>([]);
-  const [selectedDigimon, setSelectedDigimon] = useState<number | null>(null);
+  const [digimons, setDigimons] = useState<Digimons[] | null>([]);
   const [correctAnswerId, setCorrectAnswerId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentImage, setCurrentImage] = useState<string>('');
 
   const baseUrl = 'https://localhost:7285/api/Digimon';
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(`${baseUrl}/Questions`);
-  //       const data = await response.json();
-  //       setDigimons(data);
-  //     } catch (error) {
-  //       console.error('Error fetching digimons:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   type Digimons = {
     id: number;
@@ -40,29 +25,30 @@ export default function Quiz({
     image: string;
   };
 
-  const TempDigimon: Digimons[] = [
-    {
-      id: 1,
-      name: 'Agumon',
-      image: 'https://www.digi-api.com/images/digimon/w/Agumon.png',
-    },
-    {
-      id: 2,
-      name: 'Greymon',
-      image: 'https://www.digi-api.com/images/digimon/w/Greymon.png',
-    },
-    {
-      id: 3,
-      name: 'Gabumon',
-      image: 'https://www.digi-api.com/images/digimon/w/Gabumon.png',
-    },
-  ];
-
   useEffect(() => {
-    const initRandomIndex = Math.floor(Math.random() * TempDigimon.length);
-    setCurrentImage(TempDigimon[initRandomIndex].image);
-    setCorrectAnswerId(TempDigimon[initRandomIndex].id);
+    const fetchDataAsync = async (url: string) => {
+      try {
+        const result: Digimons[] = await fetchData(url);
+        setDigimons(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchDataAsync(`${baseUrl}/Questions`);
   }, []);
+
+  if (digimons === null || digimons === undefined) {
+    return <p>Loading...</p>;
+  }
+
+  const initRandomIndex = Math.floor(Math.random() * digimons.length);
+  useEffect(() => {
+    if (digimons.length > 0) {
+      setCurrentImage(digimons[initRandomIndex].image || '');
+      setCorrectAnswerId(digimons[initRandomIndex].id);
+    }
+  }, [digimons]);
 
   const handleAnswersClick = (digimonId: number) => {
     if (currentPage === 10) {
@@ -71,11 +57,11 @@ export default function Quiz({
     }
 
     if (digimonId === correctAnswerId) {
-      const randomIndex = Math.floor(Math.random() * TempDigimon.length);
+      const randomIndex = Math.floor(Math.random() * digimons.length);
       console.log('Correct!');
       updateTotalPointsState(totalPointsprops + 5);
-      setCurrentImage(TempDigimon[randomIndex].image);
-      setCorrectAnswerId(TempDigimon[randomIndex].id);
+      setCurrentImage(digimons[randomIndex].image);
+      setCorrectAnswerId(digimons[randomIndex].id);
     } else {
       console.log('Wrong!');
     }
@@ -83,28 +69,22 @@ export default function Quiz({
     console.log(currentPage);
   };
 
+  console.log(digimons);
+
   return (
     <>
       <h2>Total Score: {totalPointsprops}</h2>
       <h2>{currentPage}/10</h2>
       <h1>What is the name of this digimon?</h1>
-      <img src={currentImage} alt={'Image not found'} />
-      {/* <ul>
-        {digimons.map((digimon) => (
-          <li key={digimon.id}>
-          <button onClick={() => handleClick(digimon.id)}>
-          {digimon.name}
-          </button>
-          </li>
-          ))}
-        </ul> */}
+
+      <img src={currentImage} alt={`Image not found`} />
       <ul>
-        {TempDigimon.map((digimon) => (
+        {digimons.map((digimon) => (
           <li style={{ listStyle: 'none' }} key={digimon.id}>
             <button
               onClick={() => handleAnswersClick(digimon.id)}
               style={{
-                fontWeight: selectedDigimon === digimon.id ? 'bold' : 'normal',
+                // fontWeight: digimons === digimon.id ? 'bold' : 'normal',
                 backgroundColor: 'aqua',
               }}>
               {digimon.name}
