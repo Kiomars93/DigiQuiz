@@ -16,7 +16,7 @@ public class GetDigimonsServiceHandler : IRequestHandler<GetDigimonsServiceQuery
     public async Task<DigimonsDTO> Handle(GetDigimonsServiceQuery request, CancellationToken cancellationToken)
     {
         var random = new Random();
-        var digimons = await _digimonRepository.GetDigimons(random.Next(285));
+        var digimons = await _digimonRepository.GetDigimons(random.Next(48));
 
         var digimonsDTO = new DigimonsDTO
             {

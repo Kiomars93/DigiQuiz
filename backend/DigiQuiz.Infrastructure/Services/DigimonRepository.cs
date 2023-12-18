@@ -17,7 +17,7 @@ public class DigimonRepository : IDigimonRepository
     public async Task<Digimons> GetDigimons(int page)
     {
 
-        var httpResponse = await _httpClientFactory.CreateClient().GetAsync($"{baseUrl}digimon?page={page}&pageSize=3");
+        var httpResponse = await _httpClientFactory.CreateClient().GetAsync($"{baseUrl}digimon?page={page}&pageSize=30");
         try
         {
             httpResponse.EnsureSuccessStatusCode();
