@@ -14,6 +14,9 @@ export default function Quiz({
   const navigate = useNavigate();
   const [digimonsData, setDigimonsData] = useState<Digimons[] | null>([]);
   const [digimonsQuestion, setDigimonsQuestion] = useState<Digimons[]>([]);
+  const [displayedQuestionIds, setDisplayedQuestionIds] = useState<number[]>(
+    []
+  );
   const [correctAnswerId, setCorrectAnswerId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentImage, setCurrentImage] = useState<string>('');
@@ -55,12 +58,17 @@ export default function Quiz({
 
   const updateQuestionRound = () => {
     const remainingQuestions = digimonsData.filter(
-      (digimon) =>
-        !digimonsQuestion.some((selectedItem) => selectedItem.id === digimon.id)
+      (digimon) => !displayedQuestionIds.includes(digimon.id)
     );
 
     const randomThreeItems = getRandomThreeItems(remainingQuestions);
-    setDigimonsQuestion([...randomThreeItems]);
+
+    setDigimonsQuestion(randomThreeItems);
+
+    setDisplayedQuestionIds((prevIds) => [
+      ...prevIds,
+      ...randomThreeItems.map((item) => item.id),
+    ]);
   };
 
   const getRandomThreeItems = (items: Digimons[]): Digimons[] => {
