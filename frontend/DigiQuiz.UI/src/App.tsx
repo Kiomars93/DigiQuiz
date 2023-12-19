@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Leaderboard from './components/Leaderboard';
 
 function App() {
-  const [totalPoints, setTotalPoints] = useState<number>(1);
+  const [totalPoints, setTotalPoints] = useState<number>(0);
 
   const updateTotalPointsState = (newState: number) => {
     setTotalPoints(newState);
