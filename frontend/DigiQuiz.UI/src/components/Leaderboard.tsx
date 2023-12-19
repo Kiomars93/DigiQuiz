@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<LeaderBoard[]>([]);
-  const baseUrl = 'https://localhost:7285/api/Digimon';
 
   type LeaderBoard = {
     id: number;
@@ -19,6 +18,7 @@ export default function Leaderboard() {
     gameDate: string;
     rank: number;
   };
+  const baseUrl = 'https://localhost:7285/api/Digimon';
 
   useEffect(() => {
     const fetchDataAsync = async (url: string) => {
@@ -63,18 +63,6 @@ export default function Leaderboard() {
                 <TableCell align='right'>{row.gameDate}</TableCell>
               </TableRow>
             ))}
-            {/* {objectProperties.map(([key, value]) => (
-              <TableRow
-                key={key}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component='th' scope='row'>
-                  {key}
-                </TableCell>
-                <TableCell align='right'>{value.name}</TableCell>
-                <TableCell align='right'>{value.points}</TableCell>
-                <TableCell align='right'>{value.gameDate}</TableCell>
-              </TableRow>
-            ))} */}
           </TableBody>
         </Table>
       </TableContainer>

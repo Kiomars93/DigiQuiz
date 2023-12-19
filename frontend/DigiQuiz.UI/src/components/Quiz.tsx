@@ -126,7 +126,7 @@ export default function Quiz({
             <button
               onClick={() => handleAnswersClick(digimon.id)}
               style={{
-                // fontWeight: digimons === digimon.id ? 'bold' : 'normal',
+                width: 300,
                 backgroundColor: 'aqua',
               }}>
               {digimon.name}
