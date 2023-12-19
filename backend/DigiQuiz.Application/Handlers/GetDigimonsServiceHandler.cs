@@ -1,11 +1,11 @@
-﻿using DigiQuiz.Application.DTO;
-using DigiQuiz.Application.Interfaces;
+﻿using DigiQuiz.Application.Interfaces;
 using DigiQuiz.Application.Queries;
+using DigiQuiz.Application.Responses;
 using MediatR;
 
 namespace DigiQuiz.Application.Handlers;
 
-public class GetDigimonsServiceHandler : IRequestHandler<GetDigimonsServiceQuery, DigimonsDTO>
+public class GetDigimonsServiceHandler : IRequestHandler<GetDigimonsServiceQuery, List<GetDigimonsServiceResponse>>
 {
     private readonly IDigimonRepository _digimonRepository;
 
@@ -13,21 +13,13 @@ public class GetDigimonsServiceHandler : IRequestHandler<GetDigimonsServiceQuery
     {
         _digimonRepository = digimonRepository;
     }
-    public async Task<DigimonsDTO> Handle(GetDigimonsServiceQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetDigimonsServiceResponse>> Handle(GetDigimonsServiceQuery request, CancellationToken cancellationToken)
     {
         var random = new Random();
         var digimons = await _digimonRepository.GetDigimons(random.Next(48));
 
-        var digimonsDTO = new DigimonsDTO
-            {
-                Contents = digimons.Contents.Select(contentObj => new ContentObjDTO
-                {
-                    Id = contentObj.Id,
-                    Name = contentObj.Name,
-                    Image = contentObj.Image
-                }).ToList()
-            };
+        var getDigimonsServiceReponse = digimons.Contents.Select(c => new GetDigimonsServiceResponse { Id = c.Id, Name = c.Name, Image = c.Image }).ToList();
 
-        return digimonsDTO;
+        return getDigimonsServiceReponse;
     }
 }

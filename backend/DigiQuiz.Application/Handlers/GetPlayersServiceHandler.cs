@@ -1,11 +1,11 @@
-﻿using DigiQuiz.Application.DTO;
-using DigiQuiz.Application.Interfaces;
+﻿using DigiQuiz.Application.Interfaces;
 using DigiQuiz.Application.Queries;
+using DigiQuiz.Application.Responses;
 using MediatR;
 
 namespace DigiQuiz.Application.Handlers;
 
-public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, List<PlayerDTO>>
+public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, List<GetPlayersServiceResponse>>
 {
     private readonly IPlayerRepository _playerRepository;
     public GetPlayersServiceHandler(IPlayerRepository playerRepository)
@@ -13,18 +13,22 @@ public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, 
         _playerRepository = playerRepository;
     }
 
-    public async Task<List<PlayerDTO>> Handle(GetPlayersServiceQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetPlayersServiceResponse>> Handle(GetPlayersServiceQuery request, CancellationToken cancellationToken)
     {
         var response = await _playerRepository.GetAll();
 
-        var playerList = response.Select(x => new PlayerDTO
+        var playerServiceReponse = response.Select(x => new GetPlayersServiceResponse
         {
             Id = x.Id,
             Name = x.Name,
             Points = x.Points,
             GameDate = x.GameDate
-        }).OrderByDescending(x => x.Points).Take(5).ToList();
+        })
+            .OrderByDescending(x => x.Points)
+            .ThenByDescending(x => x.GameDate)
+            .Take(5)
+            .ToList();
 
-        return playerList;
+        return playerServiceReponse;
     }
 }

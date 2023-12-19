@@ -1,10 +1,10 @@
 ﻿using DigiQuiz.Application.Requests;
-using DigiQuiz.Domain.Models;
+using DigiQuiz.Application.Responses;
 using MediatR;
 
 namespace DigiQuiz.Application.Commands;
 
-public class PostPlayerServiceCommand : IRequest<Player>
+public class PostPlayerServiceCommand : IRequest<PostPlayerServiceResponse>
 {
     public readonly PostPlayerServiceRequest _serviceRequest;
     public PostPlayerServiceCommand(PostPlayerServiceRequest serviceRequest)

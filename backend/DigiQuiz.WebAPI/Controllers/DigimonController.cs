@@ -17,16 +17,11 @@ public class DigimonController : ControllerBase
         _sender = sender;
     }
 
-
     [HttpGet("Questions")]
     public async Task<ActionResult<GetDigimonsServiceResponse>> GetDigimons()
     {
         var response = await _sender.Send(new GetDigimonsServiceQuery());
-
-        var getDigimonsServiceReponse = response.Contents
-            .Select(c => new GetDigimonsServiceResponse { Id = c.Id, Name = c.Name, Image = c.Image });
-
-        return new OkObjectResult(getDigimonsServiceReponse);
+        return new OkObjectResult(response);
     }
 
     [HttpPost("Scoreboard")]
@@ -34,13 +29,7 @@ public class DigimonController : ControllerBase
     {
         var response = await _sender.Send(new PostPlayerServiceCommand(serviceRequest));
 
-        var playerServiceReponse = new PostPlayerServiceResponse
-        {
-            Name = response.Name,
-            Points = response.Points
-        };
-
-        return playerServiceReponse;
+        return response;
     }
 
     [HttpGet("Leaderboard")]
@@ -48,14 +37,6 @@ public class DigimonController : ControllerBase
     {
         var response = await _sender.Send(new GetPlayersServiceQuery());
 
-        var playerServiceReponse = response.Select(x => new GetPlayersServiceResponse
-        {
-            Id = x.Id,
-            Name = x.Name,
-            Points = x.Points,
-            GameDate = x.GameDate
-        }).ToList();
-
-        return playerServiceReponse;
+        return response;
     }
 }
