@@ -20,7 +20,6 @@ builder.Services.AddCors(options =>
                       });
 });
 
-
 var userSecretsConnectionString = builder.Configuration["ConnectionStrings:DatabaseConnection"];
 builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlServer(userSecretsConnectionString));
 
