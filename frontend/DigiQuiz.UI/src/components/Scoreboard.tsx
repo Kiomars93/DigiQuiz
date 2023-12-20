@@ -31,17 +31,24 @@ export default function Scoreboard({ totalPointsprops }: TotalPointProps) {
       const result: Players = await PostData(url, requestOptions);
       setPlayerData(result);
       console.log(result);
+
+      return result;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (playerName.trim() != '') {
-      PostDataAsync(`${baseUrl}/Scoreboard`);
-      navigate('/leaderboard');
+      try {
+        const result = await PostDataAsync(`${baseUrl}/Scoreboard`);
+
+        navigate('/leaderboard');
+      } catch (error) {
+        console.error('Error posting data:', error);
+      }
     }
   };
 
@@ -55,6 +62,7 @@ export default function Scoreboard({ totalPointsprops }: TotalPointProps) {
           placeholder='Enter your name'
           type='text'
           value={playerName}
+          required
           onChange={(e) => setPlayerName(e.target.value)}
         />
         <button type='submit'>Submit</button>
