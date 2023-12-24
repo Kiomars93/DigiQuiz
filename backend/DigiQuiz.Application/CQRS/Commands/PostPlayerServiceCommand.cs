@@ -2,7 +2,7 @@
 using DigiQuiz.Application.Responses;
 using MediatR;
 
-namespace DigiQuiz.Application.Commands;
+namespace DigiQuiz.Application.CQRS.Commands;
 
 public class PostPlayerServiceCommand : IRequest<PostPlayerServiceResponse>
 {

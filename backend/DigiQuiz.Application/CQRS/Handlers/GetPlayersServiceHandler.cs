@@ -1,9 +1,9 @@
-﻿using DigiQuiz.Application.Interfaces;
-using DigiQuiz.Application.Queries;
+﻿using DigiQuiz.Application.CQRS.Queries;
+using DigiQuiz.Application.Interfaces;
 using DigiQuiz.Application.Responses;
 using MediatR;
 
-namespace DigiQuiz.Application.Handlers;
+namespace DigiQuiz.Application.CQRS.Handlers;
 
 public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, List<GetPlayersServiceResponse>>
 {

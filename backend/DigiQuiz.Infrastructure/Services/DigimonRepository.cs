@@ -1,5 +1,7 @@
-﻿using DigiQuiz.Application.Interfaces;
+﻿using Azure.Core;
+using DigiQuiz.Application.Interfaces;
 using DigiQuiz.Domain.Models;
+using System.Net;
 using System.Text.Json;
 
 
@@ -16,13 +18,18 @@ public class DigimonRepository : IDigimonRepository
 
     public async Task<Digimons> GetDigimons(int page)
     {
-
         var httpResponse = await _httpClientFactory.CreateClient().GetAsync($"{baseUrl}digimon?page={page}&pageSize=30");
+
         try
         {
             httpResponse.EnsureSuccessStatusCode();
             var jsonStringResult = await httpResponse.Content.ReadAsStringAsync();
             var digimons = JsonSerializer.Deserialize<Digimons>(jsonStringResult);
+
+            if (digimons.Contents == null)
+            {
+                throw new Exception("The contents are missing!");
+            }
 
             return digimons;
         }

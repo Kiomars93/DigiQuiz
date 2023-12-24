@@ -1,10 +1,10 @@
-﻿using DigiQuiz.Application.Commands;
+﻿using DigiQuiz.Application.CQRS.Commands;
 using DigiQuiz.Application.Interfaces;
 using DigiQuiz.Application.Responses;
 using DigiQuiz.Domain.Models;
 using MediatR;
 
-namespace DigiQuiz.Application.Handlers;
+namespace DigiQuiz.Application.CQRS.Handlers;
 
 public class PostPlayerServiceHandler : IRequestHandler<PostPlayerServiceCommand, PostPlayerServiceResponse>
 {
