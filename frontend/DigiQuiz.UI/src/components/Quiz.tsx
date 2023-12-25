@@ -20,6 +20,9 @@ export default function Quiz({
   const [correctAnswerId, setCorrectAnswerId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentImage, setCurrentImage] = useState<string>('');
+  const [buttonClasses, setButtonClasses] = useState<string[]>(
+    Array(digimonsQuestion.length).fill('')
+  );
 
   const baseUrl = 'https://localhost:7285/api/Digimon';
 
@@ -37,7 +40,7 @@ export default function Quiz({
         updateTotalPointsState(0);
         setCurrentPage(1);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        throw new Error(`HTTP error! Status: ${error}`);
       }
     };
 
@@ -57,6 +60,8 @@ export default function Quiz({
   }, [digimonsData, digimonsQuestion]);
 
   const updateQuestionRound = () => {
+    setCorrectAnswerId(null);
+    setButtonClasses(Array(digimonsQuestion.length).fill(''));
     const remainingQuestions = digimonsData.filter(
       (digimon) => !displayedQuestionIds.includes(digimon.id)
     );
@@ -85,55 +90,63 @@ export default function Quiz({
     }
   }, [digimonsQuestion]);
 
-  const handleAnswersClick = (digimonId: number) => {
+  const handleAnswersClick = (digimonId: number, index: number) => {
     const randomIndex = Math.floor(Math.random() * digimonsQuestion.length);
-    setCurrentImage(digimonsQuestion[randomIndex].image);
     setCorrectAnswerId(digimonsQuestion[randomIndex].id);
 
     if (digimonId === correctAnswerId) {
       updateTotalPointsState(totalPointsprops + 5);
+      setButtonClasses((prevClasses) => {
+        const newClasses = [...prevClasses];
+        newClasses[index] = 'correct';
+        return newClasses;
+      });
+    } else {
+      setButtonClasses((prevClasses) => {
+        const newClasses = [...prevClasses];
+        newClasses[index] = 'wrong';
+        return newClasses;
+      });
     }
-
-    setCurrentPage((prevPage) => maxPageState(prevPage + 1));
 
     if (currentPage === 10) {
       navigate('/scoreboard');
     } else {
-      updateQuestionRound();
+      setTimeout(() => {
+        setCurrentPage((prevPage) => maxPageState(prevPage + 1));
+        setCurrentImage(digimonsQuestion[randomIndex].image);
+        updateQuestionRound();
+      }, 1000);
     }
   };
 
   const maxPageState = (newState: number) => {
     return Math.min(newState, 10);
   };
-
   return (
-    <>
-      <h2>Total Score: {totalPointsprops}</h2>
-      <h2>{currentPage}/10</h2>
-      <h1>What is the name of this digimon?</h1>
-
+    <div className='digimon'>
+      <h1 className='visually-hidden'>Digimon QUIZ Game</h1>
+      <p className='total-score'>Total Score: {totalPointsprops}</p>
+      <p className='current-question'>Question: {currentPage}/10</p>
+      <h2>What is the name of this digimon?</h2>
       <img
-        height='300'
-        width='300'
         src={currentImage}
         alt={`Image not found`}
-        style={{ borderRadius: '5%', border: 'solid' }}
+        className='digimon-image'
       />
-      <ul>
-        {digimonsQuestion.map((digimon) => (
-          <li style={{ listStyle: 'none' }} key={digimon.id}>
+      <ul className='answer-list'>
+        {digimonsQuestion.map((digimon, index) => (
+          <li className='list-item' key={digimon.id}>
             <button
-              onClick={() => handleAnswersClick(digimon.id)}
-              style={{
-                width: 300,
-                backgroundColor: 'aqua',
-              }}>
+              id={`button-${digimon.id}`}
+              type='button'
+              onClick={() => handleAnswersClick(digimon.id, index)}
+              className={`answer-button ${buttonClasses[index]}`}>
               {digimon.name}
             </button>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
