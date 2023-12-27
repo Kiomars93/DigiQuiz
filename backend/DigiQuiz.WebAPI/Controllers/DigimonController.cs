@@ -1,5 +1,5 @@
-﻿using DigiQuiz.Application.Commands;
-using DigiQuiz.Application.Queries;
+﻿using DigiQuiz.Application.CQRS.Commands;
+using DigiQuiz.Application.CQRS.Queries;
 using DigiQuiz.Application.Requests;
 using DigiQuiz.Application.Responses;
 using MediatR;
@@ -18,18 +18,22 @@ public class DigimonController : ControllerBase
     }
 
     [HttpGet("Questions")]
-    public async Task<ActionResult<GetDigimonsServiceResponse>> GetDigimons()
+    public async Task<ActionResult<List<GetDigimonsServiceResponse>>> GetDigimons()
     {
         var response = await _sender.Send(new GetDigimonsServiceQuery());
-        return new OkObjectResult(response);
+
+        if (response == null || response.Count == 0)
+            return NotFound(response);
+
+        return Ok(response);
     }
 
     [HttpPost("Scoreboard")]
-    public async Task<ActionResult<PostPlayerServiceResponse>> PostPlayers(PostPlayerServiceRequest serviceRequest)
+    public async Task<ActionResult<PostPlayerServiceResponse>> PostPlayer(PostPlayerServiceRequest serviceRequest)
     {
         var response = await _sender.Send(new PostPlayerServiceCommand(serviceRequest));
 
-        return response;
+        return Ok(response);
     }
 
     [HttpGet("Leaderboard")]
@@ -37,6 +41,9 @@ public class DigimonController : ControllerBase
     {
         var response = await _sender.Send(new GetPlayersServiceQuery());
 
-        return response;
+        if (response == null || response.Count == 0)
+            return NotFound(response);
+
+        return Ok(response);
     }
 }
