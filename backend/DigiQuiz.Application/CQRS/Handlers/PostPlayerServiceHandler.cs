@@ -26,11 +26,16 @@ public class PostPlayerServiceHandler : IRequestHandler<PostPlayerServiceCommand
 
         var addedPlayer = await _playerRepository.AddPlayer(player);
 
+        if (addedPlayer == null)
+        {
+            throw new NullReferenceException("player was not successfully added to the repository.");
+        }
+
         var postPlayerServiceResponse = new PostPlayerServiceResponse
         {
             Name = addedPlayer.Name,
             Points = addedPlayer.Points,
-            GameDate = DateTime.Now
+            GameDate = addedPlayer.GameDate
         };
 
         return postPlayerServiceResponse;

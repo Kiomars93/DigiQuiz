@@ -16,7 +16,12 @@ public class GetPlayersServiceHandler : IRequestHandler<GetPlayersServiceQuery, 
     public async Task<List<GetPlayersServiceResponse>> Handle(GetPlayersServiceQuery request, CancellationToken cancellationToken)
     {
         var response = await _playerRepository.GetAll();
-
+        
+        if (response == null)
+        {
+            throw new Exception("The Player repository returned a null value. Please check the data source or repository implementation.");
+        }
+        
         var playerServiceReponse = response.Select(x => new GetPlayersServiceResponse
         {
             Id = x.Id,
