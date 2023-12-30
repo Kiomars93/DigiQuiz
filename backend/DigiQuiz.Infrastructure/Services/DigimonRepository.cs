@@ -1,7 +1,5 @@
-﻿using Azure.Core;
-using DigiQuiz.Application.Interfaces;
+﻿using DigiQuiz.Application.Interfaces;
 using DigiQuiz.Domain.Models;
-using System.Net;
 using System.Text.Json;
 
 
@@ -33,10 +31,10 @@ public class DigimonRepository : IDigimonRepository
 
             return digimons;
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex)
         {
             // Todo: Create custom error
-            throw new Exception("The page is not found!");
+            throw new Exception(ex.Message + "\n page is missing!");
         }
     }
 }

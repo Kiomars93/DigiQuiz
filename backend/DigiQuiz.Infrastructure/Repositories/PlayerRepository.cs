@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DigiQuiz.Infrastructure.Repositories;
 
-internal class PlayerRepository : IPlayerRepository
+public class PlayerRepository : IPlayerRepository
 {
     private readonly PlayerDbContext _dbContext;
     public PlayerRepository(PlayerDbContext dbContext)

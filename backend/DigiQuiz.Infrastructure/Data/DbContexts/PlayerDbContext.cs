@@ -9,5 +9,5 @@ public class PlayerDbContext : DbContext
     {
     }
 
-    public DbSet<Player> Player { get; set; }
+    public virtual DbSet<Player> Player { get; set; }
 }

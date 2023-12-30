@@ -5,7 +5,7 @@ using Moq.Protected;
 using System.Net;
 using System.Text;
 
-namespace DigiQuiz.UnitTests.UnitTests.InfrastructureTests;
+namespace DigiQuiz.Tests.UnitTests.InfrastructureTests;
 
 public class DigimonRepositoryTests
 {
