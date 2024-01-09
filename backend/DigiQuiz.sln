@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B83EB1F2-2F7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A1724E61-6BC5-46B9-8340-50330A5DEDDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiQuiz.UnitTests", "DigiQuiz.UnitTests\DigiQuiz.UnitTests.csproj", "{423B3F04-8269-4202-9FC6-DE721729837C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigiQuiz.Tests", "DigiQuiz.UnitTests\DigiQuiz.Tests.csproj", "{423B3F04-8269-4202-9FC6-DE721729837C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
