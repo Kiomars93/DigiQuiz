@@ -4,7 +4,6 @@ using DigiQuiz.Application.Requests;
 using DigiQuiz.Application.Responses;
 using DigiQuiz.WebAPI.Controllers;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 

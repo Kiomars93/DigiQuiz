@@ -82,7 +82,7 @@ public class GetDigimonsServiceHandlerTests
         // Act
         var action = () => handler.Handle(query, It.IsAny<CancellationToken>());
 
-        //assert
+        // Assert
         var exception =  await Assert.ThrowsAsync<Exception>(action);
         Assert.Equal(expectedMessage, exception.Message);
     }

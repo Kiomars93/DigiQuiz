@@ -19,7 +19,7 @@ public class DigimonRepositoryTests
                                 {{ ""id"": 3, ""name"": ""Ikkakumon"", ""image"": ""https://digimon-api.com/images/digimon/w/Ikkakumon.png"" }}
                                 ] }}";
 
-        HttpResponseMessage responseMessage = new HttpResponseMessage
+        var responseMessage = new HttpResponseMessage
         {
             StatusCode = HttpStatusCode.OK,
             Content = new StringContent(responseContent, Encoding.UTF8, "application/json")
@@ -71,7 +71,7 @@ public class DigimonRepositoryTests
                                 {{ ""id"": 3, ""name"": ""Ikkakumon"", ""image"": ""https://digimon-api.com/images/digimon/w/Ikkakumon.png"" }}
                                 ] }}";
 
-        HttpResponseMessage responseMessage = new HttpResponseMessage
+        var responseMessage = new HttpResponseMessage
         {
             StatusCode = HttpStatusCode.OK,
             Content = new StringContent(responseContent, Encoding.UTF8, "application/json")
@@ -118,7 +118,7 @@ public class DigimonRepositoryTests
     public async Task GetDigimons_ReceivingResult_InternalServerError()
     {
         // Arrange
-        HttpResponseMessage responseMessage = new HttpResponseMessage
+        var responseMessage = new HttpResponseMessage
         {
             StatusCode = HttpStatusCode.OK,
             Content = new StringContent("{ \"someProperty\": \"someValue\" }", Encoding.UTF8, "application/json")
