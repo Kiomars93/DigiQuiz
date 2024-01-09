@@ -123,6 +123,7 @@ export default function Quiz({
   const maxPageState = (newState: number) => {
     return Math.min(newState, 10);
   };
+
   return (
     <div className='digimon'>
       <h1 className='visually-hidden'>Digimon QUIZ Game</h1>

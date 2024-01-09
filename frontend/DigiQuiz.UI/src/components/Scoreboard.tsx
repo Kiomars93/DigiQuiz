@@ -53,9 +53,10 @@ export default function Scoreboard({ totalPointsprops }: TotalPointProps) {
   };
 
   return (
-    <>
-      <h1>Great Job!</h1>
+    <div className='scoreboard'>
+      <h1 className='visually-hidden'>Scoreboard</h1>
       <h2>High score:</h2>
+      <span>Great Job!</span>
       <p>Total points: {totalPointsprops}</p>
       <form onSubmit={handleSubmit}>
         <input
@@ -67,6 +68,6 @@ export default function Scoreboard({ totalPointsprops }: TotalPointProps) {
         />
         <button type='submit'>Submit</button>
       </form>
-    </>
+    </div>
   );
 }

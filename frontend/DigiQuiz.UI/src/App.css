@@ -6,6 +6,7 @@
   display:flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 2rem;
 
   h2 {
     font-size: 3.2rem;
@@ -20,8 +21,12 @@
   .digimon-image {
     border-radius: 5%;
     border: 1px solid;
-    width:299px;
-    height:299px;
+    width:200px;
+    height: 200px;
+    @media screen and (min-width: 520px) {
+        width:299px;
+        height:299px;
+    }
   }
 
   .answer-list {
@@ -36,13 +41,16 @@
       .answer-button {
         width:300px;
         background-color: aqua;
-      }
-      .answer-button.wrong {
-        background-color: red;
-        color: white
+        &:hover {
+          background-color: yellow;
+        }
       }
       .answer-button.correct {
         background-color: green;
+        color: white
+      }
+      .answer-button.wrong {
+        background-color: red;
         color: white
       }
     }
