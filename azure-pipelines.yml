@@ -10,7 +10,7 @@ pool:
   vmImage: windows-latest
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 steps:
 - task: UseDotNet@2
@@ -19,8 +19,17 @@ steps:
     version: 8.x
     
 - task: DotNetCoreCLI@2
+  displayName: 'dotnet build $(buildConfiguration)'
   inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-  displayName: 'dotnet build $(buildConfiguration)'
+    
+
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
