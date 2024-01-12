@@ -27,7 +27,7 @@ steps:
     
 - task: FileTransform@1
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/**/DigiQuiz.WebAPI/*.zip'
+    folderPath: '$(System.DefaultWorkingDirectory)/**/DigiQuiz.WebAPI.zip'
     fileType: 'json'
     targetFiles: '/**/appsettings.*.json'
     
