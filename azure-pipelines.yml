@@ -10,7 +10,7 @@ pool:
   vmImage: windows-latest
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 steps:
 - task: UseDotNet@2
@@ -27,7 +27,15 @@ steps:
     
 
 - task: DotNetCoreCLI@2
+  displayName: 'Tests'
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    fileType: 'json'
+    targetFiles: '/**/appsettings.Development.json'
+
