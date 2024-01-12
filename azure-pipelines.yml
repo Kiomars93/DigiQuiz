@@ -29,7 +29,7 @@ steps:
   inputs:
     folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
     fileType: 'json'
-    targetFiles: '/**/appsettings.Development.json'
+    targetFiles: '**/*.json'
 
 - task: DotNetCoreCLI@2
   displayName: 'Tests'
