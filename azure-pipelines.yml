@@ -27,9 +27,9 @@ steps:
     
 - task: FileTransform@1
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    folderPath: '$(System.DefaultWorkingDirectory)/**/*'
     fileType: 'json'
-    targetFiles: '**/*.json'
+    targetFiles: '/**/*.json'
 
 - task: DotNetCoreCLI@2
   displayName: 'Tests'
