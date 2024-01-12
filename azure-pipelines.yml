@@ -25,6 +25,11 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
     
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    fileType: 'json'
+    targetFiles: '/**/appsettings.Development.json'
 
 - task: DotNetCoreCLI@2
   displayName: 'Tests'
@@ -32,10 +37,3 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-
-- task: FileTransform@1
-  inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    fileType: 'json'
-    targetFiles: '/**/appsettings.Development.json'
-
