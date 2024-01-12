@@ -13,21 +13,21 @@ variables:
   buildConfiguration: 'Debug'
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
-  inputs:
-    version: 8.x
+# - task: UseDotNet@2
+#   displayName: 'Install .NET Core SDK'
+#   inputs:
+#     version: 8.x
     
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build $(buildConfiguration)'
-  inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+# - task: DotNetCoreCLI@2
+#   displayName: 'dotnet build $(buildConfiguration)'
+#   inputs:
+#     command: build
+#     projects: '**/*.csproj'
+#     arguments: '--configuration $(buildConfiguration)'
     
 - task: FileTransform@1
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/**/DigiQuiz.WebAPI.zip'
+    folderPath: '$(System.DefaultWorkingDirectory)/**/DigiQuiz.WebAPI'
     fileType: 'json'
     targetFiles: '/**/appsettings.*.json'
     
