@@ -39,5 +39,5 @@ steps:
   displayName: 'Tests'
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
+    projects: '**/DigiQuiz.UnitTests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
