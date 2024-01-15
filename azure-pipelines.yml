@@ -39,5 +39,5 @@ steps:
   displayName: 'Tests'
   inputs:
     command: test
-    projects: '**/backend/*.sln'
+    projects: '**/DigiQuiz.UnitTests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
