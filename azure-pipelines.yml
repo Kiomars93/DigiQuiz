@@ -25,15 +25,12 @@ steps:
 #     projects: '**/*.csproj'
 #     arguments: '--configuration $(buildConfiguration)'
     
-# - task: FileTransform@1
-#   inputs:
-#     folderPath: '$(System.DefaultWorkingDirectory)/**/DigiQuiz.WebAPI'
-#     fileType: 'json'
-#     targetFiles: '/**/appsettings.*.json'
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/DigiQuiz.WebAPI'
+    targetFiles: '/**/appsettings.*.json'
+    fileType: 'json'
     
-
-
-
 
 - task: DotNetCoreCLI@2
   displayName: 'Tests'
