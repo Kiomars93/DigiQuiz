@@ -26,11 +26,11 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
     
 
-- task: NuGetCommand@2
-  inputs:
-    command: pack
-    packagesToPack: '**/*.csproj'
-    packDestination: '$(Build.ArtifactStagingDirectory)'
+# - task: NuGetCommand@2
+#   inputs:
+#     command: pack
+#     packagesToPack: '**/*.csproj'
+#     packDestination: '$(Build.ArtifactStagingDirectory)'
   
 
 - task: FileTransform@1
